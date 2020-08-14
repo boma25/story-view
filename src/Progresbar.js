@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Animated, 
     Easing,
+    TouchableWithoutFeedback,
   } from 'react-native';
 
   const width = Dimensions.get('window').width

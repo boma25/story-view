@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 
-import Background from './src/Background'
 import Progresbar from './src/Progresbar';
 
 
