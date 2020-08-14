@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 
 
-import Progres from './src/Progres'
+import Background from './src/Background'
+import Progresbar from './src/Progresbar';
 
 
 const App= (props) => {
@@ -19,9 +20,7 @@ const App= (props) => {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <ScrollView>
-          <Progres/>
-        </ScrollView>
+          <Progresbar/>
       </SafeAreaView>
     </>
   );
