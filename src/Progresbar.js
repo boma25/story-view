@@ -30,7 +30,8 @@ class Progresbar extends Component{
         animation2 : new Animated.Value(0),
         animation3 : new Animated.Value(0),
         animation4 : new Animated.Value(0),
-        animation5 : new Animated.Value(0)
+        animation5 : new Animated.Value(0),
+        textanimation1 : new Animated.Value(1660)
     }
 
     componentDidMount(){
@@ -38,10 +39,15 @@ class Progresbar extends Component{
     }
 
     slidein = ()=>{
-        Animated.sequence([
+       Animated.sequence([
             Animated.timing(this.state.animation1,{
                 toValue:66,
                 duration:5000,
+                useNativeDriver: false,
+            }),
+            Animated.timing(this.state.textanimation1,{
+                toValue:820,
+                duration:1,
                 useNativeDriver: false,
             }),
             Animated.timing(this.state.animation2,{
@@ -49,15 +55,30 @@ class Progresbar extends Component{
                 duration:5000,
                 useNativeDriver: false,
             }),
+            Animated.timing(this.state.textanimation1,{
+                toValue:0,
+                duration:1,
+                useNativeDriver: false,
+            }),
             Animated.timing(this.state.animation3,{
                 toValue:66,
                 duration:5000,
                 useNativeDriver: false
             }),
+            Animated.timing(this.state.textanimation1,{
+                toValue:-800,
+                duration:1,
+                useNativeDriver: false,
+            }),
             Animated.timing(this.state.animation4,{
                 toValue:66,
                 duration:5000,
                 useNativeDriver: false
+            }),
+            Animated.timing(this.state.textanimation1,{
+                toValue:-1660,
+                duration:1,
+                useNativeDriver: false,
             }),
             Animated.timing(this.state.animation5,{
                 toValue:66,
@@ -65,6 +86,7 @@ class Progresbar extends Component{
                 useNativeDriver: false
             }),
         ]).start()
+       
     }
     render(){
             
@@ -87,11 +109,34 @@ class Progresbar extends Component{
                         <Animated.View style={{height:13, width:this.state.animation5, backgroundColor:"white"}}/>
                     </TouchableOpacity>
                 </View>
-                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70}}>
+                <View style={{flexDirection:"row",}}>
+                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70, marginLeft:this.state.textanimation1, width:width}}>
                     <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
-                        {text[this.state.message]}
+                        {text[0]}
                     </Text>
                 </Animated.View>
+                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
+                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
+                        {text[1]}
+                    </Text>
+                </Animated.View>
+                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
+                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
+                        {text[2]}
+                    </Text>
+                </Animated.View>
+                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
+                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
+                        {text[3]}
+                    </Text>
+                </Animated.View>
+                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
+                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
+                        {text[4]}
+                    </Text>
+                </Animated.View>
+                </View>
+                
                 <TouchableOpacity style={{
                                     backgroundColor:"#154360",
                                         width:width-40, 
