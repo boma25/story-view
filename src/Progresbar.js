@@ -1,20 +1,21 @@
 import React, {Component} from 'react'
 import {
-    SafeAreaView,
     StyleSheet,
     View,
     Text,
     Dimensions,
     TouchableOpacity,
-    Animated, 
-    Easing,
-    TouchableWithoutFeedback,
+    Image
   } from 'react-native';
+
+
+  import back from "../assets/prev.png"
+  import next from "../assets/next.png"
+  import gohome from "../assets/backarrow.png"
+
 
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
-
-  
 
   const text = ["With SaVest Wallet You can buy airtime and save!",
                 "the second view",
@@ -25,132 +26,84 @@ import {
 
 class Progresbar extends Component{
     state = {
-        message : 0,
-        animation1 : new Animated.Value(0),
-        animation2 : new Animated.Value(0),
-        animation3 : new Animated.Value(0),
-        animation4 : new Animated.Value(0),
-        animation5 : new Animated.Value(0),
-        textanimation1 : new Animated.Value(1660)
+        color:"",
+        message:0
     }
 
     componentDidMount(){
-        this.slidein()
+        this.Renderprogress()
     }
-
-    slidein = ()=>{
-       Animated.sequence([
-            Animated.timing(this.state.animation1,{
-                toValue:66,
-                duration:5000,
-                useNativeDriver: false,
-            }),
-            Animated.timing(this.state.textanimation1,{
-                toValue:820,
-                duration:1,
-                useNativeDriver: false,
-            }),
-            Animated.timing(this.state.animation2,{
-                toValue:66,
-                duration:5000,
-                useNativeDriver: false,
-            }),
-            Animated.timing(this.state.textanimation1,{
-                toValue:0,
-                duration:1,
-                useNativeDriver: false,
-            }),
-            Animated.timing(this.state.animation3,{
-                toValue:66,
-                duration:5000,
-                useNativeDriver: false
-            }),
-            Animated.timing(this.state.textanimation1,{
-                toValue:-800,
-                duration:1,
-                useNativeDriver: false,
-            }),
-            Animated.timing(this.state.animation4,{
-                toValue:66,
-                duration:5000,
-                useNativeDriver: false
-            }),
-            Animated.timing(this.state.textanimation1,{
-                toValue:-1660,
-                duration:1,
-                useNativeDriver: false,
-            }),
-            Animated.timing(this.state.animation5,{
-                toValue:66,
-                duration:5000,
-                useNativeDriver: false
-            }),
-        ]).start()
-       
+    Renderprogress=(props)=>{
+        let i=0;
+        let p =[]
+        if (i !== text.length){
+            for (i=0; i<text.length; i++){
+                p[i] = <Progresbars id={i}  color={this.state.color} press={this.Colorchange}/>
+            }
+        }return p
+    }
+    Colorchange=()=>{
+    }
+    next =()=>{
+        if(this.state.message !== text.length-1){
+            this.setState({message:this.state.message + 1})
+        }
+    }
+    back =()=>{
+        if(this.state.message !== 0){
+            this.setState({message:this.state.message - 1})
+        }
     }
     render(){
             
         return(
             <View style={{alignItems: 'center', justifyContent: "space-around", height:height}}>
                 <View style={{flexDirection:"row", marginTop:-70, justifyContent: "center", }}>
-                    <TouchableOpacity style={styles.progres}  >
-                        <Animated.View style={{height:13, width:this.state.animation1, backgroundColor:"white"}}/>
-                    </TouchableOpacity> 
-                    <TouchableOpacity style={styles.progres} >
-                        <Animated.View style={{height:13, width:this.state.animation2, backgroundColor:"white"}}/>
+                        <this.Renderprogress />
+                </View>
+                <Writeup value={this.state.message} next={this.next} back={this.back} />
+                <View style={{}}>
+                    <TouchableOpacity style={styles.fundbutton}>
+                        <Text style={ { fontSize:15, color:"#fff" }}>
+                            FUND YOUR WALLET 
+                        </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.progres} >
-                        <Animated.View style={{height:13, width:this.state.animation3, backgroundColor:"white"}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.progres}>
-                        <Animated.View style={{height:13, width:this.state.animation4, backgroundColor:"white"}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.progres} >
-                        <Animated.View style={{height:13, width:this.state.animation5, backgroundColor:"white"}}/>
+                    <TouchableOpacity style={{flexDirection:"row", paddingTop:20,marginBottom:-40}}>
+                        <Image source={gohome}  style={{height:20,width:20, marginRight:15}}/>
+                        <Text>
+                            Home
+                        </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{flexDirection:"row",}}>
-                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70, marginLeft:this.state.textanimation1, width:width}}>
-                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
-                        {text[0]}
-                    </Text>
-                </Animated.View>
-                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
-                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
-                        {text[1]}
-                    </Text>
-                </Animated.View>
-                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
-                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
-                        {text[2]}
-                    </Text>
-                </Animated.View>
-                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
-                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
-                        {text[3]}
-                    </Text>
-                </Animated.View>
-                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70,marginLeft:0 , width:width}}>
-                    <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
-                        {text[4]}
-                    </Text>
-                </Animated.View>
-                </View>
-                
-                <TouchableOpacity style={{
-                                    backgroundColor:"#154360",
-                                        width:width-40, 
-                                        alignItems:"center", 
-                                        justifyContent: "center", 
-                                        height:46
-                                        }}>
-                    <Text style={ { fontSize:15, color:"#fff" }}>
-                        FUND YOUR WALLET 
-                    </Text>
-                </TouchableOpacity>
             </View>
         );
     }
+}
+
+const Writeup=(props)=>{
+    return(
+        <View style={{flexDirection:"row", alignItems:"center", paddingTop:70, width:width,justifyContent:"space-between", height:height/4}}>
+            <TouchableOpacity onPress={props.back}>
+                <Image source={back} style={{height:20,width:20}}/>
+            </TouchableOpacity>
+            <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360",width:width-70}}>{text[props.value]}</Text>
+            <TouchableOpacity onPress={props.next}>
+                <Image source={next} style={{height:20,width:20}}/>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+const Progresbars =(props)=>{
+    const {id,color,press} = props
+    return(
+        <View>
+            <TouchableOpacity style={styles.progres} onPress={press} >
+                <View style={{height:13, width:66,backgroundColor:color}}/>
+            </TouchableOpacity>
+        </View>
+        
+    )
 }
 
 const styles = StyleSheet.create({
@@ -163,6 +116,13 @@ const styles = StyleSheet.create({
         marginRight:10,
         borderRadius:5,
         backgroundColor:"#999"
+    },
+    fundbutton: {
+        backgroundColor:"#154360",
+        width:width-40, 
+        alignItems:"center", 
+        justifyContent: "center", 
+        height:46
     }
 
 });
