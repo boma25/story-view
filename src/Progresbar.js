@@ -14,15 +14,18 @@ import {
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
 
-  const first = "With SaVest Wallet You can buy airtime and save!"
-  const second = "the second view"
-  const third = "the third view"
-  const fourth = "the fourth view"
-  const last = "the last view"
+  
+
+  const text = ["With SaVest Wallet You can buy airtime and save!",
+                "the second view",
+                "the third view",
+                "the fourth view",
+                "the last view"
+            ]
 
 class Progresbar extends Component{
     state = {
-        message:first,
+        message : 0,
         animation1 : new Animated.Value(0),
         animation2 : new Animated.Value(0),
         animation3 : new Animated.Value(0),
@@ -71,7 +74,7 @@ class Progresbar extends Component{
                     <TouchableOpacity style={styles.progres}  >
                         <Animated.View style={{height:13, width:this.state.animation1, backgroundColor:"white"}}/>
                     </TouchableOpacity> 
-                    <TouchableOpacity style={styles.progres} onPress={()=> this.setState({message:second})}>
+                    <TouchableOpacity style={styles.progres} >
                         <Animated.View style={{height:13, width:this.state.animation2, backgroundColor:"white"}}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.progres} >
@@ -84,11 +87,11 @@ class Progresbar extends Component{
                         <Animated.View style={{height:13, width:this.state.animation5, backgroundColor:"white"}}/>
                     </TouchableOpacity>
                 </View>
-                <View style={{justifyContent: "center", alignItems:"center", paddingTop:70}}>
+                <Animated.View style={{justifyContent: "center", alignItems:"center", paddingTop:70}}>
                     <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360"}}>
-                        {this.state.message}
+                        {text[this.state.message]}
                     </Text>
-                </View>
+                </Animated.View>
                 <TouchableOpacity style={{
                                     backgroundColor:"#154360",
                                         width:width-40, 
