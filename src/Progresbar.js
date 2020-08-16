@@ -22,9 +22,17 @@ import {
                     "the second view",
                     "the third view",
                     "the fourth view",
-                    "the last view"
+                    "the last view",
                 ]
+let r =1;
+let m = 10;
+if(text.length>5){
+    r = text.length-5
+}
 
+if(text.length>m){
+    m = text.length-r
+}
 class Progresbar extends Component{
     state = {
         color:"",
@@ -48,16 +56,16 @@ class Progresbar extends Component{
         }
     }
 
-    progressclick=(x)=>{
+    progressclick=(x,y)=>{
         this.setState({
             message:text.indexOf(x),
         })
-        
+        alert(y.backgroundColor)
     }
     render(){
-        const ProgressBar =text.map(bars=>
-                <TouchableOpacity style={styles.progres} onPress={()=>this.progressclick(bars)}  >
-                    <View style={{height:13, width:66, backgroundColor:"transparent"}}/>
+        const ProgressBar =text.map((bars, index)=>
+                <TouchableOpacity style={[styles.progres,{backgroundColor:"#999",}]} onPress={()=>[this.progressclick(bars,index),]}  >
+                    
                 </TouchableOpacity>
             )
 
@@ -99,26 +107,16 @@ const Writeup=(props)=>{
     )
 }
 
-const Progresbars =(props)=>{
-    const {id,color,press} = props
-    return(
-        <View>
-           
-        </View>
-        
-    )
-}
 
 const styles = StyleSheet.create({
 
     progres :{
-        width:width/6,
+        width:width/(text.length+r),
         height:15,
         borderWidth:2,
         borderColor: "#999",
-        marginRight:10,
+        marginRight:m,
         borderRadius:5,
-        backgroundColor:"#999"
     },
     fundbutton: {
         backgroundColor:"#154360",
