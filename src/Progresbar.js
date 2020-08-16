@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import {
     StyleSheet,
     View,
@@ -17,12 +17,13 @@ import {
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
 
-  const text = ["With SaVest Wallet You can buy airtime and save!",
-                "the second view",
-                "the third view",
-                "the fourth view",
-                "the last view"
-            ]
+  const text = [
+                    "With SaVest Wallet You can buy airtime and save!",
+                    "the second view",
+                    "the third view",
+                    "the fourth view",
+                    "the last view"
+                ]
 
 class Progresbar extends Component{
     state = {
@@ -31,19 +32,11 @@ class Progresbar extends Component{
     }
 
     componentDidMount(){
-        this.Renderprogress()
     }
-    Renderprogress=(props)=>{
-        let i=0;
-        let p =[]
-        if (i !== text.length){
-            for (i=0; i<text.length; i++){
-                p[i] = <Progresbars id={i}  color={this.state.color} press={this.Colorchange}/>
-            }
-        }return p
-    }
-    Colorchange=()=>{
-    }
+   
+
+    
+
     next =()=>{
         if(this.state.message !== text.length-1){
             this.setState({message:this.state.message + 1})
@@ -54,12 +47,24 @@ class Progresbar extends Component{
             this.setState({message:this.state.message - 1})
         }
     }
+
+    progressclick=(x)=>{
+        this.setState({
+            message:text.indexOf(x),
+        })
+        
+    }
     render(){
-            
+        const ProgressBar =text.map(bars=>
+                <TouchableOpacity style={styles.progres} onPress={()=>this.progressclick(bars)}  >
+                    <View style={{height:13, width:66, backgroundColor:"transparent"}}/>
+                </TouchableOpacity>
+            )
+
         return(
             <View style={{alignItems: 'center', justifyContent: "space-around", height:height}}>
                 <View style={{flexDirection:"row", marginTop:-70, justifyContent: "center", }}>
-                        <this.Renderprogress />
+                        {ProgressBar}
                 </View>
                 <Writeup value={this.state.message} next={this.next} back={this.back} />
                 <View style={{}}>
@@ -98,9 +103,7 @@ const Progresbars =(props)=>{
     const {id,color,press} = props
     return(
         <View>
-            <TouchableOpacity style={styles.progres} onPress={press} >
-                <View style={{height:13, width:66,backgroundColor:color}}/>
-            </TouchableOpacity>
+           
         </View>
         
     )
