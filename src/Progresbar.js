@@ -16,6 +16,8 @@ import {
 
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
+  const activeColor = "#fff"
+  const inactiveColor = ""
 
   const text = [
                     "With SaVest Wallet You can buy airtime and save!",
@@ -24,26 +26,21 @@ import {
                     "the fourth view",
                     "the last view",
                 ]
-let r =1;
-let m = 10;
-if(text.length>5){
-    r = text.length-5
-}
 
-if(text.length>m){
-    m = text.length-r
+    let r =1;
+    let m = 10;
+    if(text.length>5){
+        r = text.length-5
+    }
+
+    if(text.length>m){
+        m = text.length-r
 }
 class Progresbar extends Component{
     state = {
-        color:"",
-        message:0
+        message:0,
     }
 
-    componentDidMount(){
-    }
-   
-
-    
 
     next =()=>{
         if(this.state.message !== text.length-1){
@@ -56,15 +53,16 @@ class Progresbar extends Component{
         }
     }
 
-    progressclick=(x,y)=>{
+    progressclick=(x)=>{
+        
         this.setState({
             message:text.indexOf(x),
         })
-        alert(y.backgroundColor)
+        
     }
     render(){
-        const ProgressBar =text.map((bars, index)=>
-                <TouchableOpacity style={[styles.progres,{backgroundColor:"#999",}]} onPress={()=>[this.progressclick(bars,index),]}  >
+        const ProgressBar =text.map((bars, index,)=>
+                <TouchableOpacity key={index} style={[styles.progres,{backgroundColor: index === this.state.message ? "#fff" : "#999"}]} onPress={()=>this.progressclick(bars)}> 
                     
                 </TouchableOpacity>
             )
@@ -97,11 +95,11 @@ const Writeup=(props)=>{
     return(
         <View style={{flexDirection:"row", alignItems:"center", paddingTop:70, width:width,justifyContent:"space-between", height:height/4}}>
             <TouchableOpacity onPress={props.back}>
-                <Image source={back} style={{height:20,width:20}}/>
+                <Image source={back} style={{height:12,width:20}}/>
             </TouchableOpacity>
-            <Text style={{fontSize:25, textAlign:"center", fontWeight: "bold", color:"#154360",width:width-70}}>{text[props.value]}</Text>
+            <Text style={{fontSize:20, textAlign:"center", fontWeight: "bold", color:"#154360",width:width-70}}>{text[props.value]}</Text>
             <TouchableOpacity onPress={props.next}>
-                <Image source={next} style={{height:20,width:20}}/>
+                <Image source={next} style={{height:12,width:20}}/>
             </TouchableOpacity>
         </View>
     )
@@ -112,11 +110,12 @@ const styles = StyleSheet.create({
 
     progres :{
         width:width/(text.length+r),
-        height:15,
+        height:10,
         borderWidth:2,
         borderColor: "#999",
         marginRight:m,
         borderRadius:5,
+        
     },
     fundbutton: {
         backgroundColor:"#154360",
