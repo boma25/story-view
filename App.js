@@ -14,6 +14,7 @@ import {
 import Progresbar from './src/Progresbar';
 
 
+
 const App= (props) => {
   return (
     <>
@@ -26,16 +27,12 @@ const App= (props) => {
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
   
-  },
   engine: {
     position: 'absolute',
     right: 0,
   },
-  body: {
-    
-  },
+  
 });
 
 export default App;

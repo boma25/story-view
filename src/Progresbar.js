@@ -5,13 +5,11 @@ import {
     Text,
     Dimensions,
     TouchableOpacity,
-    Image
+    Animated
   } from 'react-native';
 
 
-  import back from "../assets/prev.png"
-  import next from "../assets/next.png"
-  import gohome from "../assets/backarrow.png"
+
 
 
   const width = Dimensions.get('window').width
@@ -19,51 +17,114 @@ import {
   const activeColor = "#fff"
   const inactiveColor = ""
 
+
   const text = [
-                    "With SaVest Wallet You can buy airtime and save!",
-                    "the second view",
-                    "the third view",
-                    "the fourth view",
-                    "the last view",
-                ]
+    "first screen",
+    "second screen",
+    "third screen",
+    "fourth screen",
+    "last screen",
+]
 
-    let r =1;
-    let m = 10;
-    if(text.length>5){
-        r = text.length-5
+  
+  let r =1;
+  let m = 10;
+  if(text.length>5){
+      r = text.length-5
     }
-
+    
     if(text.length>m){
         m = text.length-r
-}
-class Progresbar extends Component{
-    state = {
-        message:0,
     }
-
-
-    next =()=>{
-        if(this.state.message !== text.length-1){
-            this.setState({message:this.state.message + 1})
+    class Progresbar extends Component{
+        state = {
+            message: 0,
+            slide1: new Animated.Value(0),
+            slide2: new Animated.Value(0),
+            slide3: new Animated.Value(0),
+            slide4: new Animated.Value(0),
+            slide5: new Animated.Value(0)
         }
-    }
-    back =()=>{
-        if(this.state.message !== 0){
-            this.setState({message:this.state.message - 1})
+        
+        componentDidMount(){
+            Animated.timing(this.state.slide1, {
+                toValue: (width/(text.length+r)-3),
+                duration: 5000,
+                useNativeDriver: false,
+            }).start(() => {
+                this.next()
+                Animated.timing(this.state.slide2, {
+                    toValue: (width/(text.length+r)-3),
+                    duration: 5000,
+                    useNativeDriver: false,
+                }).start(()=>{
+                    this.next()
+                    Animated.timing(this.state.slide3, {
+                        toValue: (width/(text.length+r)-3),
+                        duration: 5000,
+                        useNativeDriver: false,
+                    }).start(()=>{
+                        this.next()
+                        Animated.timing(this.state.slide4, {
+                            toValue: (width/(text.length+r)-3),
+                            duration: 5000,
+                            useNativeDriver: false,
+                        }).start(()=>{
+                            this.next()
+                            Animated.timing(this.state.slide5, {
+                                toValue: (width/(text.length+r)-3),
+                                duration: 5000,
+                                useNativeDriver: false,
+                            }).start()
+                        })
+                    })
+                })
+              });
         }
-    }
-
-    progressclick=(x)=>{
+        next =()=>{
+            if(this.state.message !== text.length-1){
+                this.setState({message:this.state.message + 1})
+            }
+        }
+        back =()=>{
+            if(this.state.message !== 0){
+                this.setState({message:this.state.message - 1})
+            }
+        }
         
-        this.setState({
-            message:text.indexOf(x),
-        })
-        
-    }
-    render(){
-        const ProgressBar =text.map((bars, index,)=>
-                <TouchableOpacity key={index} style={[styles.progres,{backgroundColor: index === this.state.message ? "#fff" : "#999"}]} onPress={()=>this.progressclick(bars)}> 
-                    
+        progressclick=(x)=>{
+            
+            this.setState({
+                message:text.indexOf(x),
+            })
+            
+        }
+        render(){
+            const text = [
+                              {
+                                  text:"first screen",
+                                  width:this.state.slide1
+                              },
+                              {
+                                  text:"second screen",
+                                  width:this.state.slide2
+                              },
+                              {
+                                  text:"third screen",
+                                  width:this.state.slide3
+                              },
+                              {
+                                  text:"fourth screen",
+                                  width:this.state.slide4
+                              },
+                              {
+                                  text:"last screen",
+                                  width:this.state.slide5
+                              },
+                          ]
+            const ProgressBar =text.map((bars, index,)=>
+            <TouchableOpacity key={index} style={[styles.progres,{backgroundColor: "transparent"}]} onPress={()=>this.progressclick(bars)}> 
+                    <Animated.View style={{...styles.progressInner,width:bars.width}}/>
                 </TouchableOpacity>
             )
 
@@ -72,34 +133,27 @@ class Progresbar extends Component{
                 <View style={{flexDirection:"row", marginTop:-70, justifyContent: "center", }}>
                         {ProgressBar}
                 </View>
-                <Writeup value={this.state.message} next={this.next} back={this.back} />
+                <Writeup value={this.state.message}  next={this.next} back={this.back} />
                 <View style={{}}>
-                    <TouchableOpacity style={styles.fundbutton}>
-                        <Text style={ { fontSize:15, color:"#fff" }}>
-                            FUND YOUR WALLET 
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flexDirection:"row", paddingTop:20,marginBottom:-40}}>
-                        <Image source={gohome}  style={{height:20,width:20, marginRight:15}}/>
-                        <Text>
-                            Home
-                        </Text>
-                    </TouchableOpacity>
                 </View>
             </View>
         );
     }
 }
 
+
+
 const Writeup=(props)=>{
     return(
         <View style={{flexDirection:"row", alignItems:"center", paddingTop:70, width:width,justifyContent:"space-between", height:height/4}}>
-            <TouchableOpacity onPress={props.back}>
-                <Image source={back} style={{height:12,width:20}}/>
+            <TouchableOpacity onPress={props.back} style={{width:width/3, height:height/1.1}}>
+                
             </TouchableOpacity>
-            <Text style={{fontSize:20, textAlign:"center", fontWeight: "bold", color:"#154360",width:width-70}}>{text[props.value]}</Text>
-            <TouchableOpacity onPress={props.next}>
-                <Image source={next} style={{height:12,width:20}}/>
+            <View>
+                <Text style={{fontSize:20, textAlign:"center", fontWeight: "bold", color:"#154360",width:width/3}}>{text[props.value]}</Text>
+            </View>
+            <TouchableOpacity onPress={props.next} style={{width:width/3, height:height/1.1}}>
+                
             </TouchableOpacity>
         </View>
     )
@@ -117,12 +171,11 @@ const styles = StyleSheet.create({
         borderRadius:5,
         
     },
-    fundbutton: {
-        backgroundColor:"#154360",
-        width:width-40, 
-        alignItems:"center", 
-        justifyContent: "center", 
-        height:46
+    progressInner:{
+        height:8,
+        backgroundColor: "#999",
+        marginRight:m,
+        borderRadius:5,
     }
 
 });
